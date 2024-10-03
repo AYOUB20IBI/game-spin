@@ -1,0 +1,79 @@
+body{
+  background: black;
+  height: 112vh;
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+text{
+  font-family:  Arial, sans-serif;
+  font-size:20px;
+  font-weight: bold;
+  color: #fff !important;
+  pointer-events:none;
+}
+
+#chart{
+  position:absolute;
+  width:450px;
+  height:450px;
+  top:40px; 
+  /* left:40px; */
+  z-index: 1;
+  margin-top: 60px;
+}
+
+#chart::before
+{
+  content: "";
+  display: block;
+  position: absolute;
+  width: 104%;
+  height: 104%;
+  left: -11px;
+  top: -11px;
+  pointer-events: none;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  /*background: transparent url("https://cdn.listagram.com/static/api/images/default/wheel_shadow_inside.png") no-repeat -40px -40px;
+  background-size: cover;*/
+  /* background: rgb(207 207 207 / 67%); */
+  background: #fff;
+  z-index: -1;
+  border: 2px solid #000000;
+}
+
+
+
+.win{
+  background: #fff;
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 12px;
+  border: 6px solid #00000036;
+  font-family: 'DM Sans';
+  z-index: 2;
+  display: none;
+}
+
+.win-block{
+  display: block;
+}
+
+.logo{
+  display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.logo img{
+  width: 25%;
+}
+
+
+svg {
+  overflow: unset; /* Add this line to the SVG styles */
+}
