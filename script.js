@@ -64,17 +64,18 @@ var padding = { top: 0, right: 0, bottom: 0, left: 0 },
         function spin() {
             var id_win = document.getElementById("win");
             container.on("click", null);
-
+        
             if (oldpick.length === data.length) {
                 console.log("done");
                 container.on("click", null);
                 return;
             }
-
+        
             var ps = 360 / data.length,
-                rng = Math.floor((Math.random() * 360) + 360); // Random between 360 and 720 degrees
-            rotation = (Math.round(rng / ps) * ps);
-
+                rounds = 5; // Nombre de tours souhaités
+            var rng = Math.floor((Math.random() * 360) + 360); // Random entre 360 et 720 degrés
+            rotation = (Math.round(rng / ps) * ps) + (360 * rounds); // Ajoute des tours complets
+        
             var pickedIndex = Math.floor(Math.random() * data.length); // Randomly pick a slice
             if (oldpick.indexOf(pickedIndex) !== -1) {
                 d3.select(this).call(spin);
@@ -82,20 +83,20 @@ var padding = { top: 0, right: 0, bottom: 0, left: 0 },
             } else {
                 oldpick.push(pickedIndex);
             }
-
-            // Calculate the rotation needed to position the selected slice at the bottom
+        
+            // Calculer la rotation nécessaire pour positionner la tranche sélectionnée en bas
             var degreesToBottom = 180; // Rotate to position the picked slice at the bottom
             var angleForPickedSlice = pickedIndex * ps;
-
-            // Ensure the wheel rotates with the picked slice ending up at the bottom
-            rotation = (360 - angleForPickedSlice) + degreesToBottom;
-
-            // Ensure the speed remains consistent by resetting oldrotation after each spin
+        
+            // Assurez-vous que la roue tourne avec la tranche sélectionnée se terminant en bas
+            rotation = (360 - angleForPickedSlice) + degreesToBottom + (360 * rounds);
+        
+            // Assurez-vous que la vitesse reste constante en réinitialisant oldrotation après chaque spin
             oldrotation = 0;
-
+        
             vis.transition()
-                .duration(500) // Shorter duration for maximum speed
-                .ease("linear") // Linear easing for consistent high speed
+                .duration(2000) // Durée de la transition
+                .ease("linear") // Easing linear pour une vitesse constante
                 .attrTween("transform", rotTween)
                 .each("end", function () {
                     d3.select("#question p").text(data[pickedIndex].value);
@@ -104,6 +105,7 @@ var padding = { top: 0, right: 0, bottom: 0, left: 0 },
                     container.on("click", spin);
                 });
         }
+        
 
         // Add triangle pointer at the bottom of the wheel
         svg.append("g")
